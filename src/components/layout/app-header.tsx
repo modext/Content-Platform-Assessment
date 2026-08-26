@@ -5,6 +5,7 @@ import { LogoutButton } from "@/features/auth/logout-button";
 const navigation = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/posts", label: "Posts" },
+  { href: "/users", label: "Users" },
 ] as const;
 
 export function AppHeader() {

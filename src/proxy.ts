@@ -12,7 +12,9 @@ function isProtectedPath(pathname: string): boolean {
     pathname === "/dashboard" ||
     pathname.startsWith("/dashboard/") ||
     pathname === "/posts" ||
-    pathname.startsWith("/posts/")
+    pathname.startsWith("/posts/") ||
+    pathname === "/users" ||
+    pathname.startsWith("/users/")
   );
 }
 
@@ -57,5 +59,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/dashboard/:path*", "/posts/:path*"],
+  matcher: ["/login", "/dashboard/:path*", "/posts/:path*", "/users/:path*"],
 };
