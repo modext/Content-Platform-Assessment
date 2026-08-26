@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 import { PostsList } from "@/features/posts/components/posts-list";
-import { getPosts } from "@/features/posts/api";
+import { postQueries } from "@/features/posts/queries";
+import { getQueryClient } from "@/lib/query-client";
 
 export const metadata: Metadata = {
   title: "Posts | Content Platform",
 };
 
 export default async function PostsPage() {
-  const posts = await getPosts();
+  const queryClient = getQueryClient();
+
+  await queryClient.prefetchQuery(postQueries.list());
 
   return (
     <section className="space-y-6">
@@ -21,7 +25,9 @@ export default async function PostsPage() {
         </p>
       </div>
 
-      <PostsList posts={posts} />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <PostsList />
+      </HydrationBoundary>
     </section>
   );
 }
