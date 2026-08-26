@@ -2,23 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { PostDetailView } from "@/features/posts/components/post-detail-view";
-import { getPost } from "@/features/posts/api";
+import { parsePostId } from "@/features/posts/lib/parse-post-id";
+import { getCachedPost } from "@/features/posts/server/get-cached-post";
 import { getPostDetail } from "@/features/posts/server/get-post-detail";
-import type { Post } from "@/features/posts/types";
 import { ApiError } from "@/lib/api-error";
 
 interface PostPageProps {
   params: Promise<{ postId: string }>;
-}
-
-function parsePostId(postId: string): Post["id"] | null {
-  if (!/^\d+$/.test(postId)) {
-    return null;
-  }
-
-  const id = Number(postId);
-
-  return id >= 1 ? id : null;
 }
 
 export async function generateMetadata({
@@ -32,7 +22,7 @@ export async function generateMetadata({
   }
 
   try {
-    const post = await getPost(id);
+    const post = await getCachedPost(id);
 
     return {
       title: `${post.title} | Content Platform`,
