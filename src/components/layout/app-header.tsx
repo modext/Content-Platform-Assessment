@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { LogoutButton } from "@/features/auth/logout-button";
+
 const navigation = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/posts", label: "Posts" },
@@ -28,6 +30,9 @@ export function AppHeader() {
                 </Link>
               </li>
             ))}
+            <li>
+              <LogoutButton />
+            </li>
           </ul>
         </nav>
       </div>

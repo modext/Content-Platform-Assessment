@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import {
   Card,
   CardContent,
@@ -6,25 +7,32 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { LoginForm } from "@/features/auth/login-form";
+import { getSafeRedirectPath } from "@/features/auth/redirect";
 
 export const metadata: Metadata = {
   title: "Sign in | Content Platform",
 };
 
-export default function LoginPage() {
+interface LoginPageProps {
+  searchParams: Promise<{ next?: string | string[] }>;
+}
+
+export default async function LoginPage({ searchParams }: LoginPageProps) {
+  const { next } = await searchParams;
+  const nextPath = Array.isArray(next) ? next[0] : next;
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-zinc-50 px-4 dark:bg-zinc-900">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Welcome back</CardTitle>
           <CardDescription>
-            Sign in to access the protected content workspace.
+            Sign in with a JSONPlaceholder account to access the workspace.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            Authentication controls will be introduced with the auth feature.
-          </p>
+          <LoginForm redirectTo={getSafeRedirectPath(nextPath)} />
         </CardContent>
       </Card>
     </main>
