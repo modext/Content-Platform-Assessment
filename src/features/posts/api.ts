@@ -1,20 +1,7 @@
 import { apiClient } from "@/lib/axios";
 
+import { filterPostsByQuery } from "./lib/post-list-filters";
 import type { CreatePostInput, GetPostsParams, Post } from "./types";
-
-function filterPostsByQuery(posts: Post[], query: string | undefined): Post[] {
-  const normalizedQuery = query?.trim().toLowerCase();
-
-  if (!normalizedQuery) {
-    return posts;
-  }
-
-  return posts.filter(
-    (post) =>
-      post.title.toLowerCase().includes(normalizedQuery) ||
-      post.body.toLowerCase().includes(normalizedQuery),
-  );
-}
 
 export async function getPosts(params: GetPostsParams = {}): Promise<Post[]> {
   const { query, userId } = params;
