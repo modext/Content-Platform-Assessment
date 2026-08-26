@@ -1,6 +1,6 @@
 import { apiClient } from "@/lib/axios";
 
-import type { GetPostsParams, Post } from "./types";
+import type { CreatePostInput, GetPostsParams, Post } from "./types";
 
 function filterPostsByQuery(posts: Post[], query: string | undefined): Post[] {
   const normalizedQuery = query?.trim().toLowerCase();
@@ -27,6 +27,16 @@ export async function getPosts(params: GetPostsParams = {}): Promise<Post[]> {
 
 export async function getPost(postId: Post["id"]): Promise<Post> {
   const response = await apiClient.get<Post>("/posts/" + postId);
+
+  return response.data;
+}
+
+export async function createPost(input: CreatePostInput): Promise<Post> {
+  const response = await apiClient.post<Post>("/posts", {
+    title: input.title.trim(),
+    body: input.body.trim(),
+    userId: input.userId,
+  });
 
   return response.data;
 }

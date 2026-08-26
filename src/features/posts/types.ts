@@ -10,3 +10,9 @@ export interface GetPostsParams {
   /** Client-side title/body filter — JSONPlaceholder has no text search API. */
   query?: string;
 }
+
+export interface CreatePostInput {
+  title: string;
+  body: string;
+  userId: number;
+}
