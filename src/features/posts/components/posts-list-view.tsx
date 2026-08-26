@@ -4,14 +4,16 @@ import type { Post } from "@/features/posts/types";
 
 interface PostsListViewProps {
   posts: Post[];
+  emptyMessage?: string;
 }
 
-export function PostsListView({ posts }: PostsListViewProps) {
+export function PostsListView({
+  posts,
+  emptyMessage = "No posts found.",
+}: PostsListViewProps) {
   if (posts.length === 0) {
     return (
-      <p className="text-sm text-zinc-600 dark:text-zinc-400">
-        No posts found.
-      </p>
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">{emptyMessage}</p>
     );
   }
 
