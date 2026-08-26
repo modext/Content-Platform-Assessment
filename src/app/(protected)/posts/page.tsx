@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
+import { PostsList } from "@/features/posts/components/posts-list";
+import { getPosts } from "@/features/posts/api";
 
 export const metadata: Metadata = {
   title: "Posts | Content Platform",
 };
 
-export default function PostsPage() {
+export default async function PostsPage() {
+  const posts = await getPosts();
+
   return (
     <section className="space-y-6">
       <div>
@@ -22,14 +21,7 @@ export default function PostsPage() {
         </p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Content feed</CardTitle>
-          <CardDescription>
-            Post data will be connected through the posts feature.
-          </CardDescription>
-        </CardHeader>
-      </Card>
+      <PostsList posts={posts} />
     </section>
   );
 }
