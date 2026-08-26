@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import type { Post } from "@/features/posts/types";
 
 interface PostsListViewProps {
@@ -18,9 +20,14 @@ export function PostsListView({ posts }: PostsListViewProps) {
       {posts.map((post) => (
         <li key={post.id} className="py-4 first:pt-0 last:pb-0">
           <h2 className="text-base font-medium text-zinc-950 dark:text-zinc-50">
-            {post.title}
+            <Link
+              href={`/posts/${post.id}`}
+              className="underline-offset-4 transition-colors hover:underline"
+            >
+              {post.title}
+            </Link>
           </h2>
-          <p className="mt-1 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-1 line-clamp-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
             {post.body}
           </p>
         </li>
