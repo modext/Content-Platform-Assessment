@@ -7,3 +7,9 @@ export async function getUsers(): Promise<User[]> {
 
   return response.data;
 }
+
+export async function getUser(userId: User["id"]): Promise<User> {
+  const response = await apiClient.get<User>("/users/" + userId);
+
+  return response.data;
+}
