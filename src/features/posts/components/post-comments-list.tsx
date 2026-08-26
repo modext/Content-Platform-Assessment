@@ -1,3 +1,4 @@
+import { EmptyState } from "@/components/ui/empty-state";
 import type { Comment } from "@/features/comments/types";
 import {
   Card,
@@ -22,9 +23,10 @@ export function PostCommentsList({ comments }: PostCommentsListProps) {
       </CardHeader>
       <CardContent>
         {comments.length === 0 ? (
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            No comments yet.
-          </p>
+          <EmptyState
+            title="No comments yet"
+            description="This post does not have any discussion threads to display."
+          />
         ) : (
           <ul className="divide-y divide-zinc-200 dark:divide-zinc-800">
             {comments.map((comment) => (

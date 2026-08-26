@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { EmptyState } from "@/components/ui/empty-state";
 import type { User } from "@/features/users/types";
 
 interface UsersListViewProps {
@@ -9,9 +10,10 @@ interface UsersListViewProps {
 export function UsersListView({ users }: UsersListViewProps) {
   if (users.length === 0) {
     return (
-      <p className="text-sm text-zinc-600 dark:text-zinc-400">
-        No users found.
-      </p>
+      <EmptyState
+        title="No users found"
+        description="The users directory is empty. Try again later."
+      />
     );
   }
 

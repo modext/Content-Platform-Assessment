@@ -79,7 +79,11 @@ export default async function UserPage({ params }: UserPageProps) {
         </div>
         <PostsListView
           posts={posts}
-          emptyMessage={`${user.name} has not authored any posts yet.`}
+          emptyState={{
+            title: "No authored posts",
+            description: `${user.name} has not published any posts in this feed yet.`,
+            action: { label: "Browse all posts", href: "/posts" },
+          }}
         />
       </section>
     </article>

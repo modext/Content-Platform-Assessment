@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 
-import { getPostsEmptyMessage } from "@/features/posts/lib/get-posts-empty-message";
+import { getPostsEmptyState } from "@/features/posts/lib/get-posts-empty-state";
 import { paginatePosts } from "@/features/posts/lib/paginate-posts";
 import { parsePostsListParams } from "@/features/posts/lib/parse-posts-list-params";
 import { usePosts } from "@/features/posts/hooks";
@@ -37,7 +37,7 @@ export function PostsList() {
     <div className="space-y-4">
       <PostsListView
         posts={pagination.items}
-        emptyMessage={getPostsEmptyMessage(filters)}
+        emptyState={getPostsEmptyState(filters)}
       />
       <PostsPagination
         page={pagination.page}

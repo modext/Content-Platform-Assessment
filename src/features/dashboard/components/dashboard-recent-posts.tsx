@@ -27,7 +27,15 @@ export function DashboardRecentPosts({ posts }: DashboardRecentPostsProps) {
         </Link>
       </div>
 
-      <PostsListView posts={posts} emptyMessage="No recent posts to show." />
+      <PostsListView
+        posts={posts}
+        emptyState={{
+          title: "No recent posts",
+          description:
+            "There is no recent activity to highlight on the dashboard.",
+          action: { label: "Browse posts", href: "/posts" },
+        }}
+      />
     </section>
   );
 }
