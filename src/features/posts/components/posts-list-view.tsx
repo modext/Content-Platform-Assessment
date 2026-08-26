@@ -1,37 +1,37 @@
-import Link from "next/link";
+import { EmptyState } from "@/components/ui/empty-state";
 
 import type { Post } from "@/features/posts/types";
 
+import { PostCard } from "./post-card";
+
 interface PostsListViewProps {
   posts: Post[];
-  emptyMessage?: string;
+  emptyState?: {
+    title: string;
+    description: string;
+    action?: { label: string; href: string };
+  };
 }
 
-export function PostsListView({
-  posts,
-  emptyMessage = "No posts found.",
-}: PostsListViewProps) {
+export function PostsListView({ posts, emptyState }: PostsListViewProps) {
   if (posts.length === 0) {
-    return (
-      <p className="text-sm text-zinc-600 dark:text-zinc-400">{emptyMessage}</p>
-    );
+    if (!emptyState) {
+      return (
+        <EmptyState
+          title="No posts found"
+          description="There is nothing to show in this list right now."
+        />
+      );
+    }
+
+    return <EmptyState {...emptyState} />;
   }
 
   return (
-    <ul className="divide-y divide-zinc-200 dark:divide-zinc-800">
+    <ul className="grid gap-4 sm:grid-cols-2">
       {posts.map((post) => (
-        <li key={post.id} className="py-4 first:pt-0 last:pb-0">
-          <h2 className="text-base font-medium text-zinc-950 dark:text-zinc-50">
-            <Link
-              href={`/posts/${post.id}`}
-              className="underline-offset-4 transition-colors hover:underline"
-            >
-              {post.title}
-            </Link>
-          </h2>
-          <p className="mt-1 line-clamp-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
-            {post.body}
-          </p>
+        <li key={post.id}>
+          <PostCard post={post} />
         </li>
       ))}
     </ul>

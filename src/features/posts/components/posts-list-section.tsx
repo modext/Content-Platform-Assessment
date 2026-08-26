@@ -2,6 +2,13 @@ import { Suspense } from "react";
 
 import { HydrationBoundary } from "@tanstack/react-query";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { getUsers } from "@/features/users/api";
 import { prefetchPostsList } from "@/features/posts/server/prefetch-posts-list";
 import type { GetPostsParams } from "@/features/posts/types";
@@ -30,12 +37,22 @@ export async function PostsListSection({
 
   return (
     <div className="space-y-6">
-      <Suspense fallback={null}>
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_16rem] lg:items-end">
-          <PostsSearchForm />
-          <PostsAuthorFilter authors={authors} />
-        </div>
-      </Suspense>
+      <Card>
+        <CardHeader>
+          <CardTitle>Discover posts</CardTitle>
+          <CardDescription>
+            Search by keyword or filter by author. Results stay in the URL.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Suspense fallback={null}>
+            <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_16rem] lg:items-end">
+              <PostsSearchForm />
+              <PostsAuthorFilter authors={authors} />
+            </div>
+          </Suspense>
+        </CardContent>
+      </Card>
 
       <HydrationBoundary state={dehydratedState}>
         <Suspense fallback={<PostsListPending />}>
