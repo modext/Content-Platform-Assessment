@@ -3,6 +3,8 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { ChangeEvent } from "react";
 
+import { resetPostsPageParam } from "@/features/posts/lib/build-posts-list-url";
+
 const selectClassName =
   "flex h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-950 outline-none transition-colors focus-visible:border-zinc-400 focus-visible:ring-2 focus-visible:ring-zinc-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50 dark:focus-visible:border-zinc-600 dark:focus-visible:ring-zinc-800 sm:max-w-xs";
 
@@ -22,7 +24,7 @@ export function PostsAuthorFilter({ authors }: PostsAuthorFilterProps) {
   const selectedUserId = searchParams.get("userId") ?? "";
 
   function handleChange(event: ChangeEvent<HTMLSelectElement>) {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = resetPostsPageParam(searchParams);
     const nextUserId = event.target.value;
 
     if (nextUserId) {

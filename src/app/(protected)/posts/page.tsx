@@ -12,6 +12,7 @@ interface PostsPageProps {
   searchParams: Promise<{
     query?: string | string[];
     userId?: string | string[];
+    page?: string | string[];
   }>;
 }
 
