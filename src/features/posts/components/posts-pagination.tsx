@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
-import { buildPostsListUrl } from "@/features/posts/lib/build-posts-list-url";
+import {
+  buildPostsListUrl,
+  parsePostsListParamsFromSearchParams,
+  updatePostsListParams,
+} from "@/features/posts/lib/parse-posts-list-params";
 
 interface PostsPaginationProps {
   page: number;
@@ -23,12 +27,12 @@ export function PostsPagination({
     return null;
   }
 
-  const pageHref = (nextPage: number) =>
-    buildPostsListUrl({
-      pathname,
-      searchParams,
-      page: nextPage,
-    });
+  const pageHref = (nextPage: number) => {
+    const current = parsePostsListParamsFromSearchParams(searchParams);
+    const next = updatePostsListParams(current, { page: nextPage });
+
+    return buildPostsListUrl(pathname, next);
+  };
 
   const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 

@@ -3,7 +3,11 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
 
-import { resetPostsPageParam } from "@/features/posts/lib/build-posts-list-url";
+import {
+  buildPostsListUrl,
+  parsePostsListParamsFromSearchParams,
+  updatePostsListParams,
+} from "@/features/posts/lib/parse-posts-list-params";
 
 const inputClassName =
   "flex h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-950 outline-none transition-colors placeholder:text-zinc-400 focus-visible:border-zinc-400 focus-visible:ring-2 focus-visible:ring-zinc-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50 dark:placeholder:text-zinc-500 dark:focus-visible:border-zinc-600 dark:focus-visible:ring-zinc-800";
@@ -18,28 +22,21 @@ function PostsSearchFormFields({ initialQuery }: PostsSearchFormFieldsProps) {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(initialQuery);
 
+  function navigateWithParams(update: { query: string | null }) {
+    const current = parsePostsListParamsFromSearchParams(searchParams);
+    const next = updatePostsListParams(current, update);
+
+    router.push(buildPostsListUrl(pathname, next));
+  }
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    const params = resetPostsPageParam(searchParams);
-    const trimmedQuery = query.trim();
-
-    if (trimmedQuery) {
-      params.set("query", trimmedQuery);
-    } else {
-      params.delete("query");
-    }
-
-    const nextSearch = params.toString();
-    router.push(nextSearch ? `${pathname}?${nextSearch}` : pathname);
+    navigateWithParams({ query: query.trim() || null });
   }
 
   function handleClear() {
-    const params = resetPostsPageParam(searchParams);
-    params.delete("query");
-
-    const nextSearch = params.toString();
-    router.push(nextSearch ? `${pathname}?${nextSearch}` : pathname);
+    setQuery("");
+    navigateWithParams({ query: null });
   }
 
   return (
@@ -79,7 +76,8 @@ function PostsSearchFormFields({ initialQuery }: PostsSearchFormFieldsProps) {
 
 export function PostsSearchForm() {
   const searchParams = useSearchParams();
-  const queryFromUrl = searchParams.get("query") ?? "";
+  const queryFromUrl =
+    parsePostsListParamsFromSearchParams(searchParams).filters.query ?? "";
 
   return (
     <PostsSearchFormFields key={queryFromUrl} initialQuery={queryFromUrl} />

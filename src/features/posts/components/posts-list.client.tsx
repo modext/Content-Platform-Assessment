@@ -4,8 +4,7 @@ import { useSearchParams } from "next/navigation";
 
 import { getPostsEmptyMessage } from "@/features/posts/lib/get-posts-empty-message";
 import { paginatePosts } from "@/features/posts/lib/paginate-posts";
-import { parsePostsPage } from "@/features/posts/lib/parse-posts-page";
-import { parsePostsSearchParams } from "@/features/posts/lib/parse-posts-search-params";
+import { parsePostsListParams } from "@/features/posts/lib/parse-posts-list-params";
 import { usePosts } from "@/features/posts/hooks";
 
 import { PostsPagination } from "./posts-pagination";
@@ -14,9 +13,9 @@ import { PostsListError, PostsListPending } from "./posts-list-status";
 
 export function PostsList() {
   const searchParams = useSearchParams();
-  const params = Object.fromEntries(searchParams.entries());
-  const filters = parsePostsSearchParams(params);
-  const page = parsePostsPage(params);
+  const { filters, page } = parsePostsListParams(
+    Object.fromEntries(searchParams.entries()),
+  );
   const { data, isPending, isError, refetch } = usePosts(filters);
 
   if (isPending) {

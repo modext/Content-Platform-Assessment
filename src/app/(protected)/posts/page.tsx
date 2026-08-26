@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { PostsListSection } from "@/features/posts/components/posts-list-section";
 import { PostsPageHeader } from "@/features/posts/components/posts-page-header";
-import { parsePostsSearchParams } from "@/features/posts/lib/parse-posts-search-params";
+import { parsePostsListParams } from "@/features/posts/lib/parse-posts-list-params";
 
 export const metadata: Metadata = {
   title: "Posts | Content Platform",
@@ -17,7 +17,7 @@ interface PostsPageProps {
 }
 
 export default async function PostsPage({ searchParams }: PostsPageProps) {
-  const filters = parsePostsSearchParams(await searchParams);
+  const { filters } = parsePostsListParams(await searchParams);
 
   return (
     <section className="space-y-6">
