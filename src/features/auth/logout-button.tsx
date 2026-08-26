@@ -30,8 +30,13 @@ export function LogoutButton() {
   }
 
   return (
-    <div className="flex items-center gap-2">
-      <Button variant="ghost" onClick={handleLogout} disabled={isSubmitting}>
+    <div className="flex w-full items-center gap-2 px-1">
+      <Button
+        variant="ghost"
+        className="w-full justify-start md:w-auto md:justify-center"
+        onClick={handleLogout}
+        disabled={isSubmitting}
+      >
         {isSubmitting ? "Signing out..." : "Sign out"}
       </Button>
       {errorMessage ? (

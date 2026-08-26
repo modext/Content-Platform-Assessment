@@ -26,7 +26,7 @@ export function EmptyState({ title, description, action }: EmptyStateProps) {
       {action ? (
         <Link
           href={action.href}
-          className="mt-4 inline-flex text-sm font-medium text-zinc-950 underline underline-offset-4 dark:text-zinc-50"
+          className="mt-4 inline-flex min-h-10 items-center rounded-lg px-2 text-sm font-medium text-zinc-950 underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 dark:text-zinc-50 dark:focus-visible:ring-offset-zinc-950"
         >
           {action.label}
         </Link>

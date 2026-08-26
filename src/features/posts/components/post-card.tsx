@@ -22,7 +22,7 @@ export function PostCard({ post }: PostCardProps) {
         <CardTitle className="text-base leading-6">
           <Link
             href={`/posts/${post.id}`}
-            className="underline-offset-4 transition-colors hover:underline"
+            className="rounded-sm underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-zinc-950"
           >
             {post.title}
           </Link>

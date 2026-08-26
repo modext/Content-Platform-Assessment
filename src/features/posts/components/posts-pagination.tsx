@@ -9,6 +9,12 @@ import {
   updatePostsListParams,
 } from "@/features/posts/lib/parse-posts-list-params";
 
+const paginationLinkClassName =
+  "inline-flex h-10 min-h-10 items-center justify-center rounded-lg border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-950 transition-colors hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50 dark:hover:bg-zinc-900 dark:focus-visible:ring-offset-zinc-950";
+
+const paginationPageLinkClassName =
+  "inline-flex h-10 min-w-10 items-center justify-center rounded-lg px-3 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:focus-visible:ring-offset-zinc-950";
+
 interface PostsPaginationProps {
   page: number;
   totalPages: number;
@@ -47,14 +53,11 @@ export function PostsPagination({
 
       <div className="flex flex-wrap items-center gap-2">
         {page > 1 ? (
-          <Link
-            href={pageHref(page - 1)}
-            className="inline-flex h-9 items-center justify-center rounded-lg border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-950 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50 dark:hover:bg-zinc-900"
-          >
+          <Link href={pageHref(page - 1)} className={paginationLinkClassName}>
             Previous
           </Link>
         ) : (
-          <span className="inline-flex h-9 items-center justify-center rounded-lg border border-zinc-200 px-3 text-sm font-medium text-zinc-400 dark:border-zinc-800 dark:text-zinc-500">
+          <span className="inline-flex h-10 min-h-10 items-center justify-center rounded-lg border border-zinc-200 px-3 text-sm font-medium text-zinc-400 dark:border-zinc-800 dark:text-zinc-500">
             Previous
           </span>
         )}
@@ -68,14 +71,14 @@ export function PostsPagination({
                 {isCurrentPage ? (
                   <span
                     aria-current="page"
-                    className="inline-flex h-9 min-w-9 items-center justify-center rounded-lg bg-zinc-950 px-3 text-sm font-medium text-white dark:bg-zinc-50 dark:text-zinc-950"
+                    className="inline-flex h-10 min-w-10 items-center justify-center rounded-lg bg-zinc-950 px-3 text-sm font-medium text-white dark:bg-zinc-50 dark:text-zinc-950"
                   >
                     {pageNumber}
                   </span>
                 ) : (
                   <Link
                     href={pageHref(pageNumber)}
-                    className="inline-flex h-9 min-w-9 items-center justify-center rounded-lg px-3 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900"
+                    className={paginationPageLinkClassName}
                   >
                     {pageNumber}
                   </Link>
@@ -86,14 +89,11 @@ export function PostsPagination({
         </ul>
 
         {page < totalPages ? (
-          <Link
-            href={pageHref(page + 1)}
-            className="inline-flex h-9 items-center justify-center rounded-lg border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-950 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50 dark:hover:bg-zinc-900"
-          >
+          <Link href={pageHref(page + 1)} className={paginationLinkClassName}>
             Next
           </Link>
         ) : (
-          <span className="inline-flex h-9 items-center justify-center rounded-lg border border-zinc-200 px-3 text-sm font-medium text-zinc-400 dark:border-zinc-800 dark:text-zinc-500">
+          <span className="inline-flex h-10 min-h-10 items-center justify-center rounded-lg border border-zinc-200 px-3 text-sm font-medium text-zinc-400 dark:border-zinc-800 dark:text-zinc-500">
             Next
           </span>
         )}

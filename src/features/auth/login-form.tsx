@@ -49,7 +49,12 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
   }
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit} noValidate>
+    <form
+      className="space-y-4"
+      onSubmit={handleSubmit}
+      noValidate
+      aria-describedby="login-demo-hint"
+    >
       <div className="space-y-2">
         <label
           htmlFor="email"
@@ -103,7 +108,10 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
         {isSubmitting ? "Signing in..." : "Sign in"}
       </Button>
 
-      <p className="text-xs leading-5 text-zinc-500 dark:text-zinc-400">
+      <p
+        id="login-demo-hint"
+        className="text-xs leading-5 text-zinc-500 dark:text-zinc-400"
+      >
         Demo: use any JSONPlaceholder user email with password{" "}
         <code className="rounded bg-zinc-100 px-1 py-0.5 font-mono text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
           {MOCK_PASSWORD}
