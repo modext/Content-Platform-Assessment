@@ -2,6 +2,7 @@ import "server-only";
 
 import { cache } from "react";
 
+import { getComments } from "@/features/comments/api";
 import { getPosts } from "@/features/posts/api";
 import type { Post } from "@/features/posts/types";
 import { getUsers } from "@/features/users/api";
@@ -19,15 +20,21 @@ export interface DashboardData {
 
 export const getDashboardData = cache(
   async function getDashboardData(): Promise<DashboardData> {
-    const [posts, users] = await Promise.all([getPosts(), getUsers()]);
+    const [posts, users, comments] = await Promise.all([
+      getPosts(),
+      getUsers(),
+      getComments(),
+    ]);
+
+    const recentPosts = [...posts].sort((a, b) => b.id - a.id).slice(0, 5);
 
     return {
       metrics: {
         postsCount: posts.length,
         authorsCount: users.length,
-        commentsCount: posts.length,
+        commentsCount: comments.length,
       },
-      recentPosts: posts.slice(0, 5),
+      recentPosts,
     };
   },
 );
