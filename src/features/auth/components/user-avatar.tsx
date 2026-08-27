@@ -14,7 +14,7 @@ const sizeClassNames = {
 } as const;
 
 interface UserAvatarProps {
-  user: AuthUser;
+  user: Pick<AuthUser, "id" | "name">;
   avatarUrl?: string | null;
   size?: keyof typeof sizeClassNames;
   ringClassName?: string;

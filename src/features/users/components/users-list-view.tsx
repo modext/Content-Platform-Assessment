@@ -1,13 +1,15 @@
 import Link from "next/link";
 
 import { EmptyState } from "@/components/ui/empty-state";
+import { UserAvatar } from "@/features/auth/components/user-avatar";
 import type { User } from "@/features/users/types";
 
 interface UsersListViewProps {
   users: User[];
+  avatarUrls?: Record<number, string>;
 }
 
-export function UsersListView({ users }: UsersListViewProps) {
+export function UsersListView({ users, avatarUrls = {} }: UsersListViewProps) {
   if (users.length === 0) {
     return (
       <EmptyState
@@ -21,22 +23,32 @@ export function UsersListView({ users }: UsersListViewProps) {
     <ul className="divide-y divide-zinc-200 dark:divide-zinc-800">
       {users.map((user) => (
         <li key={user.id} className="py-4 first:pt-0 last:pb-0">
-          <h2 className="text-base font-medium text-zinc-950 dark:text-zinc-50">
-            <Link
-              href={`/users/${user.id}`}
-              className="underline-offset-4 transition-colors hover:underline"
-            >
-              {user.name}
-            </Link>
-          </h2>
-          <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-            @{user.username} · {user.email}
-          </p>
-          {user.company.name ? (
-            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-500">
-              {user.company.name}
-            </p>
-          ) : null}
+          <div className="flex items-start gap-3">
+            <UserAvatar
+              user={{ id: user.id, name: user.name }}
+              avatarUrl={avatarUrls[user.id]}
+              size="md"
+              ringClassName="ring-1 ring-zinc-200 dark:ring-zinc-700"
+            />
+            <div className="min-w-0 flex-1">
+              <h2 className="text-base font-medium text-zinc-950 dark:text-zinc-50">
+                <Link
+                  href={`/users/${user.id}`}
+                  className="underline-offset-4 transition-colors hover:underline"
+                >
+                  {user.name}
+                </Link>
+              </h2>
+              <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                @{user.username} · {user.email}
+              </p>
+              {user.company.name ? (
+                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-500">
+                  {user.company.name}
+                </p>
+              ) : null}
+            </div>
+          </div>
         </li>
       ))}
     </ul>
