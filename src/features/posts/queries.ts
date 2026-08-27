@@ -1,17 +1,11 @@
 import { queryOptions } from "@tanstack/react-query";
 
+import { createQueryKeys } from "@/lib/query-keys";
+
 import { getPost, getPosts } from "./api";
 import type { GetPostsParams, Post } from "./types";
 
-const POSTS_QUERY_KEY = "posts";
-
-export const postKeys = {
-  all: [POSTS_QUERY_KEY] as const,
-  lists: () => [POSTS_QUERY_KEY, "list"] as const,
-  list: (params: GetPostsParams) => [POSTS_QUERY_KEY, "list", params] as const,
-  details: () => [POSTS_QUERY_KEY, "detail"] as const,
-  detail: (postId: Post["id"]) => [POSTS_QUERY_KEY, "detail", postId] as const,
-};
+export const postKeys = createQueryKeys("posts");
 
 export const postQueries = {
   list(params: GetPostsParams = {}) {

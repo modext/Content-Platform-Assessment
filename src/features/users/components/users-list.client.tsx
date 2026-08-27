@@ -1,20 +1,21 @@
 "use client";
 
+import { ListLoadingMessage } from "@/components/ui/list-loading-message";
+import { QueryRetryAlert } from "@/components/ui/query-retry-alert";
 import { useUsers } from "@/features/users/hooks";
 
 import { UsersListView } from "./users-list-view";
-import { UsersListError, UsersListPending } from "./users-list-status";
 
 export function UsersList() {
   const { data, isPending, isError, refetch } = useUsers();
 
   if (isPending) {
-    return <UsersListPending />;
+    return <ListLoadingMessage noun="users" />;
   }
 
   if (isError) {
     return (
-      <UsersListError
+      <QueryRetryAlert
         message="Unable to load users. Please try again."
         onRetry={() => refetch()}
       />

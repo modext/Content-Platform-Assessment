@@ -1,7 +1,8 @@
 "use client";
 
-import type { QueryKey } from "@tanstack/react-query";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { getListParamsFromQueryKey } from "@/lib/query-keys";
 
 import { createPost } from "./api";
 import {
@@ -14,16 +15,6 @@ import type { CreatePostInput, GetPostsParams, Post } from "./types";
 
 export function usePosts(params: GetPostsParams = {}) {
   return useQuery(postQueries.list(params));
-}
-
-function getListFiltersFromQueryKey(queryKey: QueryKey): GetPostsParams {
-  const params = queryKey[2];
-
-  if (params && typeof params === "object") {
-    return params as GetPostsParams;
-  }
-
-  return {};
 }
 
 function prependPostToList(
@@ -50,7 +41,10 @@ function updateAllPostLists(
         return oldData;
       }
 
-      return updater(oldData, getListFiltersFromQueryKey(query.queryKey));
+      return updater(
+        oldData,
+        getListParamsFromQueryKey<GetPostsParams>(query.queryKey),
+      );
     });
   }
 }

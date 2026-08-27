@@ -15,7 +15,7 @@ import type { GetPostsParams } from "@/features/posts/types";
 
 import { PostsAuthorFilter } from "./posts-author-filter";
 import { PostsList } from "./posts-list.client";
-import { PostsListPending } from "./posts-list-status";
+import { ListLoadingMessage } from "@/components/ui/list-loading-message";
 import { PostsSearchForm } from "./posts-search-form";
 
 interface PostsListSectionProps {
@@ -68,7 +68,7 @@ export async function PostsListSection({
       </Card>
 
       <HydrationBoundary state={dehydratedState}>
-        <Suspense fallback={<PostsListPending />}>
+        <Suspense fallback={<ListLoadingMessage noun="posts" />}>
           <PostsList />
         </Suspense>
       </HydrationBoundary>

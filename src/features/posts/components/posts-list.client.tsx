@@ -2,6 +2,8 @@
 
 import { useSearchParams } from "next/navigation";
 
+import { ListLoadingMessage } from "@/components/ui/list-loading-message";
+import { QueryRetryAlert } from "@/components/ui/query-retry-alert";
 import { getPostsEmptyState } from "@/features/posts/lib/get-posts-empty-state";
 import { paginatePosts } from "@/features/posts/lib/paginate-posts";
 import { parsePostsListParams } from "@/features/posts/lib/parse-posts-list-params";
@@ -9,7 +11,6 @@ import { usePosts } from "@/features/posts/hooks";
 
 import { PostsPagination } from "./posts-pagination";
 import { PostsListView } from "./posts-list-view";
-import { PostsListError, PostsListPending } from "./posts-list-status";
 
 export function PostsList() {
   const searchParams = useSearchParams();
@@ -19,12 +20,12 @@ export function PostsList() {
   const { data, isPending, isError, refetch } = usePosts(filters);
 
   if (isPending) {
-    return <PostsListPending />;
+    return <ListLoadingMessage noun="posts" />;
   }
 
   if (isError) {
     return (
-      <PostsListError
+      <QueryRetryAlert
         message="Unable to load posts. Please try again."
         onRetry={() => refetch()}
       />
