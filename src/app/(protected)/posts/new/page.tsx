@@ -11,7 +11,7 @@ import {
 import { CreatePostForm } from "@/features/posts/components/create-post-form";
 
 export const metadata: Metadata = {
-  title: "New post | Content Platform",
+  title: "New post | Content Plat4m",
 };
 
 export default function NewPostPage() {

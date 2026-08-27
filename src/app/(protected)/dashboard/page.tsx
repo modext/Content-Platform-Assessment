@@ -5,7 +5,7 @@ import { DashboardRecentPosts } from "@/features/dashboard/components/dashboard-
 import { getDashboardData } from "@/features/dashboard/server/get-dashboard-data";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Content Platform",
+  title: "Dashboard | Content Plat4m",
 };
 
 export default async function DashboardPage() {

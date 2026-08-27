@@ -5,7 +5,7 @@ import { PostsPageHeader } from "@/features/posts/components/posts-page-header";
 import { parsePostsListParams } from "@/features/posts/lib/parse-posts-list-params";
 
 export const metadata: Metadata = {
-  title: "Posts | Content Platform",
+  title: "Posts | Content Plat4m",
 };
 
 interface PostsPageProps {

@@ -18,21 +18,21 @@ export async function generateMetadata({
   const id = parsePostId(postId);
 
   if (id === null) {
-    return { title: "Post not found | Content Platform" };
+    return { title: "Post not found | Content Plat4m" };
   }
 
   try {
     const post = await getCachedPost(id);
 
     return {
-      title: `${post.title} | Content Platform`,
+      title: `${post.title} | Content Plat4m`,
     };
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) {
-      return { title: "Post not found | Content Platform" };
+      return { title: "Post not found | Content Plat4m" };
     }
 
-    return { title: "Post | Content Platform" };
+    return { title: "Post | Content Plat4m" };
   }
 }
 

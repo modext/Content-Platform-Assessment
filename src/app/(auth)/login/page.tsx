@@ -11,7 +11,7 @@ import { LoginForm } from "@/features/auth/login-form";
 import { getSafeRedirectPath } from "@/features/auth/redirect";
 
 export const metadata: Metadata = {
-  title: "Sign in | Content Platform",
+  title: "Sign in | Content Plat4m",
 };
 
 interface LoginPageProps {

@@ -8,9 +8,44 @@ export function AppHeader() {
       <div className="relative mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href="/dashboard"
-          className="rounded-lg font-semibold tracking-tight text-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 dark:text-zinc-50 dark:focus-visible:ring-offset-zinc-950"
+          className="flex items-center gap-2 rounded-lg font-semibold tracking-tight text-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 dark:text-zinc-50 dark:focus-visible:ring-offset-zinc-950"
         >
-          Content Platform
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 100 100"
+            fill="none"
+            aria-hidden="true"
+            className="shrink-0"
+          >
+            <rect
+              x="24"
+              y="18"
+              width="15"
+              height="40"
+              rx="5"
+              fill="currentColor"
+            />
+            <rect
+              x="24"
+              y="50"
+              width="52"
+              height="15"
+              rx="5"
+              fill="currentColor"
+            />
+            <rect
+              x="61"
+              y="18"
+              width="15"
+              height="64"
+              rx="5"
+              fill="currentColor"
+            />
+          </svg>
+          <span>
+            Content Plat<span className="font-mono">4</span>m
+          </span>
         </Link>
 
         <AppNavigation />

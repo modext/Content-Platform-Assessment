@@ -93,3 +93,18 @@ State ownership is split deliberately:
   paging.
 - Test coverage currently covers the auth store only; the middleware, session signing, and
   the mutation rollback path are the next things worth testing.
+
+## Deployment
+
+The app is a standard Next.js project and runs anywhere that supports Node.js 18+.
+
+Before deploying, run through this checklist: `npm run lint`, then `npm test`, then
+`npm run build`, and optionally `npm run start` as a local smoke test on
+`http://localhost:3000`.
+
+Two environment variables matter in production:
+
+- `NEXT_PUBLIC_API_BASE_URL` is optional and defaults to JSONPlaceholder.
+- `AUTH_SECRET` is required — at least 32 characters, used to sign session cookies. Set it
+  in your host's environment settings (for example, Vercel project → Settings →
+  Environment Variables). Never commit `.env.local`.

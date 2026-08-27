@@ -20,21 +20,21 @@ export async function generateMetadata({
   const parsedUserId = parseUserId(userId);
 
   if (!parsedUserId) {
-    return { title: "User not found | Content Platform" };
+    return { title: "User not found | Content Plat4m" };
   }
 
   try {
     const user = await getUser(parsedUserId);
 
     return {
-      title: `${user.name} | Content Platform`,
+      title: `${user.name} | Content Plat4m`,
     };
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) {
-      return { title: "User not found | Content Platform" };
+      return { title: "User not found | Content Plat4m" };
     }
 
-    return { title: "User | Content Platform" };
+    return { title: "User | Content Plat4m" };
   }
 }
 
