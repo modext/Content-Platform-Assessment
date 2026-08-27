@@ -22,18 +22,28 @@ interface PostsListSectionProps {
   filters?: GetPostsParams;
 }
 
+async function getAuthorOptions() {
+  try {
+    const users = await getUsers();
+
+    return users.map((user) => ({
+      id: user.id,
+      name: user.name,
+    }));
+  } catch {
+    return [];
+  }
+}
+
 export async function PostsListSection({
   filters = {},
 }: PostsListSectionProps) {
-  const [dehydratedState, users] = await Promise.all([
+  const [dehydratedState, authors] = await Promise.all([
     prefetchPostsList(filters),
-    getUsers(),
+    getAuthorOptions(),
   ]);
 
-  const authors = users.map((user) => ({
-    id: user.id,
-    name: user.name,
-  }));
+  const authorsUnavailable = authors.length === 0;
 
   return (
     <div className="space-y-6">
@@ -41,14 +51,17 @@ export async function PostsListSection({
         <CardHeader>
           <CardTitle>Discover posts</CardTitle>
           <CardDescription>
-            Search by keyword or filter by author. Results stay in the URL.
+            Search by keyword or filter by author.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Suspense fallback={null}>
             <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_16rem] lg:items-end">
               <PostsSearchForm />
-              <PostsAuthorFilter authors={authors} />
+              <PostsAuthorFilter
+                authors={authors}
+                authorsUnavailable={authorsUnavailable}
+              />
             </div>
           </Suspense>
         </CardContent>

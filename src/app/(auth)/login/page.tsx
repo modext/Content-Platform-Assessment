@@ -26,7 +26,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
     <main className="flex min-h-screen items-center justify-center bg-zinc-50 px-4 dark:bg-zinc-900">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Welcome back</CardTitle>
+          <CardTitle>Welcome</CardTitle>
           <CardDescription>
             Sign in with a JSONPlaceholder account to access the workspace.
           </CardDescription>

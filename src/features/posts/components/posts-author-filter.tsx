@@ -19,9 +19,13 @@ export interface PostsAuthorOption {
 
 interface PostsAuthorFilterProps {
   authors: PostsAuthorOption[];
+  authorsUnavailable?: boolean;
 }
 
-export function PostsAuthorFilter({ authors }: PostsAuthorFilterProps) {
+export function PostsAuthorFilter({
+  authors,
+  authorsUnavailable = false,
+}: PostsAuthorFilterProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -53,6 +57,10 @@ export function PostsAuthorFilter({ authors }: PostsAuthorFilterProps) {
         value={selectedUserId}
         onChange={handleChange}
         className={selectClassName}
+        disabled={authorsUnavailable}
+        aria-describedby={
+          authorsUnavailable ? "posts-author-filter-status" : undefined
+        }
       >
         <option value="">All authors</option>
         {authors.map((author) => (
@@ -61,6 +69,15 @@ export function PostsAuthorFilter({ authors }: PostsAuthorFilterProps) {
           </option>
         ))}
       </select>
+      {authorsUnavailable ? (
+        <p
+          id="posts-author-filter-status"
+          className="text-xs text-zinc-500 dark:text-zinc-400"
+          role="status"
+        >
+          Author list is temporarily unavailable.
+        </p>
+      ) : null}
     </div>
   );
 }
